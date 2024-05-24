@@ -10,27 +10,28 @@ function App() {
   const colors = ['red', 'green', 'blue', 'orange'];
 
   const addNode = (parentIndex, text, color, isArrow, isDashed, direction) => {
-    let newX = 400;
-    let newY = 300;
-    
-    // Determinar la nueva posición basada en la dirección
+    const parent = nodes[parentIndex];
+    let newX = parent.x;
+    let newY = parent.y;
+  
+    // Ajustar las posiciones basadas en la dirección
     switch (direction) {
       case 'up':
-        newY = nodes[parentIndex].y - 100;
+        newY -= 100;
         break;
       case 'down':
-        newY = nodes[parentIndex].y + 100;
+        newY += 100;
         break;
       case 'left':
-        newX = nodes[parentIndex].x - 100;
+        newX -= 100;
         break;
       case 'right':
-        newX = nodes[parentIndex].x + 100;
+        newX += 100;
         break;
       default:
         break;
     }
-    
+  
     const newNode = { text, x: newX, y: newY, color };
     setNodes([...nodes, newNode]);
     setLines([...lines, { from: parentIndex, to: nodes.length, relation: text, isArrow, isDashed }]);
